@@ -1,9 +1,0 @@
-[submodule "M0/libft"]
-	path = M0/libft
-	url = git@vogsphere.42bangkok.com:vogsphere/intra-uuid-9c29f9fa-1233-4a76-863f-6823bb8f909f-6850269-rprasopk
-[submodule "M1/ft_printf"]
-	path = M1/ft_printf
-	url = git@vogsphere.42bangkok.com:vogsphere/intra-uuid-ece1c953-b139-4bb2-8d7a-9959674ca3a8-6930202-rprasopk
-[submodule "M1/get_next_line"]
-	path = M1/get_next_line
-	url = git@vogsphere.42bangkok.com:vogsphere/intra-uuid-714138ac-8b76-440e-8889-2a24b8841260-6959878-rprasopk
