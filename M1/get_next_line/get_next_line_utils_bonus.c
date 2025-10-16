@@ -1,16 +1,16 @@
 /* ************************************************************************** */
-/*																			  */
-/*														  :::	   ::::::::   */
-/*	 get_next_line_utils.c								:+:		 :+:	:+:   */
-/*													  +:+ +:+		  +:+	  */
-/*	 By: rprasopk <rprasopk@student.42.fr>			+#+  +:+	   +#+		  */
-/*												  +#+#+#+#+#+	+#+			  */
-/*	 Created: 2025/09/30 22:27:38 by rprasopk		   #+#	  #+#			  */
-/*	 Updated: 2025/09/30 22:35:42 by rprasopk		  ###	########.fr		  */
-/*																			  */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rprasopk <rprasopk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/15 03:43:49 by rprasopk          #+#    #+#             */
+/*   Updated: 2025/10/15 03:43:51 by rprasopk         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 ssize_t	ft_strlen(char *str)
 {

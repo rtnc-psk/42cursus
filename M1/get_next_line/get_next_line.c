@@ -12,9 +12,6 @@
 
 #include "get_next_line.h"
 
-char	*ft_read_file(int fd, char *stash, char *buf);
-char	*ft_get_line(char **stash);
-
 char	*get_next_line(int fd)
 {
 	char		*res;
@@ -31,7 +28,7 @@ char	*get_next_line(int fd)
 	stash = ft_read_file(fd, stash, buf);
 	free(buf);
 	if (!stash || stash[0] == '\0')
-		return (NULL);
+		return (ft_free(&stash));
 	res = ft_get_line(&stash);
 	if (!stash)
 	{
@@ -53,12 +50,9 @@ char	*ft_read_file(int fd, char *stash, char *buf)
 	{
 		byte_read = read(fd, buf, BUFFER_SIZE);
 		if (byte_read == -1)
-		{
-			free(stash);
-			return (NULL);
-		}
-		if (byte_read == 0 && !stash)
-			return (NULL);
+			return (ft_free(&stash));
+		if (byte_read == 0 && stash[0] == '\0')
+			return (ft_free(&stash));
 		buf[byte_read] = '\0';
 		temp = stash;
 		stash = ft_strjoin(temp, buf);
@@ -98,4 +92,10 @@ char	*ft_get_line(char **stash)
 	*stash = ft_strdup(temp + i + 1);
 	free(temp);
 	return (res);
+}
+
+char	*ft_free(char **ptr)
+{
+	free(*ptr);
+	return (NULL);
 }

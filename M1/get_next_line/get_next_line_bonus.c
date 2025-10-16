@@ -1,25 +1,22 @@
 /* ************************************************************************** */
-/*																			  */
-/*														  :::	   ::::::::   */
-/*	 get_next_line.c									:+:		 :+:	:+:   */
-/*													  +:+ +:+		  +:+	  */
-/*	 By: rprasopk <rprasopk@student.42.fr>			+#+  +:+	   +#+		  */
-/*												  +#+#+#+#+#+	+#+			  */
-/*	 Created: 2025/10/08 19:23:11 by rprasopk		   #+#	  #+#			  */
-/*	 Updated: 2025/10/08 19:23:14 by rprasopk		  ###	########.fr		  */
-/*																			  */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rprasopk <rprasopk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/15 03:44:49 by rprasopk          #+#    #+#             */
+/*   Updated: 2025/10/15 03:58:46 by rprasopk         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
-char	*ft_read_file(int fd, char *stash, char *buf);
-char	*ft_get_line(char **stash);
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
 	char		*res;
 	char		*buf;
-	static char	*stash[1024];
+	static char	*stash[FD_MAX];
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
@@ -31,7 +28,7 @@ char	*get_next_line(int fd)
 	stash[fd] = ft_read_file(fd, stash[fd], buf);
 	free(buf);
 	if (!stash[fd] || stash[fd][0] == '\0')
-		return (NULL);
+		return (ft_free(&(stash[fd])));
 	res = ft_get_line(&(stash[fd]));
 	if (!stash[fd])
 	{
@@ -53,12 +50,9 @@ char	*ft_read_file(int fd, char *stash, char *buf)
 	{
 		byte_read = read(fd, buf, BUFFER_SIZE);
 		if (byte_read == -1)
-		{
-			free(stash);
-			return (NULL);
-		}
-		if (byte_read == 0 && !stash)
-			return (NULL);
+			return (ft_free(&stash));
+		if (byte_read == 0 && stash[0] == '\0')
+			return (ft_free(&stash));
 		buf[byte_read] = '\0';
 		temp = stash;
 		stash = ft_strjoin(temp, buf);
@@ -98,4 +92,10 @@ char	*ft_get_line(char **stash)
 	*stash = ft_strdup(temp + i + 1);
 	free(temp);
 	return (res);
+}
+
+char	*ft_free(char **ptr)
+{
+	free(*ptr);
+	return (NULL);
 }
