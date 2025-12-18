@@ -5,7 +5,7 @@ LIBFT = include/libft
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-FLAG_LIBFT = -Wall -Wextra -Werror -I include -Linclude/ -lft
+FLAG_LIBFT = -Wall -Wextra -Werror -I include
 FLAG = -Wall -Wextra -Werror -g3 ${OBJ} -I include -Linclude/ -lft
 
 SRC_FILE = pipex

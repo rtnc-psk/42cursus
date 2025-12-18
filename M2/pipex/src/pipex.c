@@ -29,13 +29,16 @@ int	main(int arc, char **arv, char **envp)
 		return (-1);
 	pid = fork();
 	if (pid == -1)
+	{
+		perror("fork failed");
 		return (-1);
+	}
 	if (pid == 0)
 		child_process(fd, arv, envp);
 	else
 	{
-		waitpid(pid, NULL, 0);
 		parent_process(fd, arv, envp);
+		waitpid(pid, NULL, 0);
 	}
 }
 
@@ -79,6 +82,7 @@ void	execute_cmd(char *arv, char **envp)
 {
 	char	**cmd_args;
 	char	*path;
+	pid_t	pid;
 
 	if (!arv[0])
 	{
@@ -98,10 +102,21 @@ void	execute_cmd(char *arv, char **envp)
 		perror("Command not found");
 		exit(127);
 	}
-	if (execve(path, cmd_args, envp) == -1)
+	pid = fork();
+	if (pid == -1)
+		perror("fork failed");
+	if (pid == 0)
 	{
-		perror("execve");
-		exit(1);
+		if (execve(path, cmd_args, envp) == -1)
+		{
+			perror("execve");
+			exit(1);
+		}
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		return ;
 	}
 }
 
