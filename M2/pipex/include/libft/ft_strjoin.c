@@ -6,33 +6,33 @@
 /*   By: rprasopk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 22:39:26 by rprasopk          #+#    #+#             */
-/*   Updated: 2025/09/06 00:13:57 by rprasopk         ###   ########.fr       */
+/*   Updated: 2026/01/08 13:42:33 by rprasopk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *str1, char *str2)
 {
-	char	*temp;
-	size_t	s1_len;
-	size_t	s2_len;
-	size_t	i;
-	size_t	j;
+	int		i;
+	char	*join;
 
-	i = -1;
-	j = 0;
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	temp = malloc(s1_len + s2_len * sizeof(char) + 1);
-	if (!temp)
+	if (!str1)
+		return (ft_strdup(str2));
+	if (!str2)
+		return (ft_strdup(str1));
+	if (!str1 && !str2)
 		return (NULL);
-	while (++i < s1_len)
-		temp[i] = s1[i];
-	while (i < (s1_len + s2_len))
-		temp[i++] = s2[j++];
-	temp[i] = '\0';
-	return (temp);
+	join = malloc(ft_strlen(str1) + ft_strlen(str2) + 1);
+	if (!join)
+		return (NULL);
+	i = 0;
+	while (*str1)
+		join[i++] = *str1++;
+	while (*str2)
+		join[i++] = *str2++;
+	join[i] = '\0';
+	return (join);
 }
 
 /* int	main(void) */

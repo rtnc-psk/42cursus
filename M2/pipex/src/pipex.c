@@ -6,7 +6,7 @@
 /*   By: rprasopk <rprasopk@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 14:29:35 by rprasopk          #+#    #+#             */
-/*   Updated: 2025/12/19 00:17:20 by rprasopk         ###   ########.fr       */
+/*   Updated: 2026/01/08 15:08:24 by rprasopk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	child_process(int *fd, char **arv, char **envp);
 void	parent_process(int *fd, char **arv, char **envp);
 void	execute_cmd(char *arv, char **envp);
 char	*find_path(char *cmd, char **envp);
-void	ft_free_tab(char **tab);
 
 int	main(int arc, char **arv, char **envp)
 {
@@ -82,11 +81,10 @@ void	execute_cmd(char *arv, char **envp)
 {
 	char	**cmd_args;
 	char	*path;
-	pid_t	pid;
 
 	if (!arv[0])
 	{
-		perror("Command not fond");
+		perror("Command not found");
 		exit(127);
 	}
 	cmd_args = ft_split(arv, ' ');
@@ -102,22 +100,7 @@ void	execute_cmd(char *arv, char **envp)
 		perror("Command not found");
 		exit(127);
 	}
-	pid = fork();
-	if (pid == -1)
-		perror("fork failed");
-	if (pid == 0)
-	{
-		if (execve(path, cmd_args, envp) == -1)
-		{
-			perror("execve");
-			exit(1);
-		}
-	}
-	else
-	{
-		waitpid(pid, NULL, 0);
-		return ;
-	}
+	execute_fork(path, cmd_args, envp);
 }
 
 char	*find_path(char *cmd, char **envp)
@@ -128,18 +111,8 @@ char	*find_path(char *cmd, char **envp)
 	int		i;
 
 	if (ft_strchr(cmd, '/'))
-	{
-		if (access(cmd, F_OK | X_OK) == 0)
-			return (ft_strdup(cmd));
-		else
-			return (NULL);
-	}
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
-		i++;
-	if (!envp[i])
-		return (NULL);
-	paths = ft_split(envp[i] + 5, ':');
+		return (cmd_check(cmd));
+	paths = find_envp(envp);
 	i = -1;
 	while (paths[++i])
 	{
@@ -155,19 +128,4 @@ char	*find_path(char *cmd, char **envp)
 	}
 	ft_free_tab(paths);
 	return (NULL);
-}
-
-void	ft_free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
 }

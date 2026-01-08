@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   execute_fork.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rprasopk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/03 01:52:18 by rprasopk          #+#    #+#             */
-/*   Updated: 2026/01/08 15:05:40 by rprasopk         ###   ########.fr       */
+/*   Created: 2026/01/08 14:56:12 by rprasopk          #+#    #+#             */
+/*   Updated: 2026/01/08 15:04:24 by rprasopk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../include/pipex.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <string.h>
-# include <sys/wait.h>
-# include <sys/types.h>
+void	execute_fork(char *path, char **cmd_args, char **envp)
+{
+	pid_t	pid;
 
-# include "./libft/libft.h"
-
-void	ft_free_tab(char **tab);
-char	*cmd_check(char *cmd);
-char	**find_envp(char **envp);
-void	execute_fork(char *path, char **cmd_args, char **envp);
-
-#endif
+	pid = fork();
+	if (pid == -1)
+		perror("fork failed");
+	if (pid == 0)
+	{
+		if (execve(path, cmd_args, envp) == -1)
+		{
+			perror("execve");
+			exit(1);
+		}
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		ft_free_tab(cmd_args);
+		free(path);
+		return ;
+	}
+}

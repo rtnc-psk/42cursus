@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   find_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rprasopk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/03 01:52:18 by rprasopk          #+#    #+#             */
-/*   Updated: 2026/01/08 15:05:40 by rprasopk         ###   ########.fr       */
+/*   Created: 2026/01/08 14:38:47 by rprasopk          #+#    #+#             */
+/*   Updated: 2026/01/08 14:51:22 by rprasopk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../include/pipex.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <string.h>
-# include <sys/wait.h>
-# include <sys/types.h>
+char	**find_envp(char **envp)
+{
+	int		i;
+	char	**paths;
 
-# include "./libft/libft.h"
-
-void	ft_free_tab(char **tab);
-char	*cmd_check(char *cmd);
-char	**find_envp(char **envp);
-void	execute_fork(char *path, char **cmd_args, char **envp);
-
-#endif
+	i = 0;
+	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
+		i++;
+	if (!envp[i])
+		return (NULL);
+	paths = ft_split(envp[i] + 5, ':');
+	return (paths);
+}

@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   cmd_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rprasopk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/03 01:52:18 by rprasopk          #+#    #+#             */
-/*   Updated: 2026/01/08 15:05:40 by rprasopk         ###   ########.fr       */
+/*   Created: 2026/01/08 14:06:50 by rprasopk          #+#    #+#             */
+/*   Updated: 2026/01/08 14:50:57 by rprasopk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../include/pipex.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <string.h>
-# include <sys/wait.h>
-# include <sys/types.h>
-
-# include "./libft/libft.h"
-
-void	ft_free_tab(char **tab);
-char	*cmd_check(char *cmd);
-char	**find_envp(char **envp);
-void	execute_fork(char *path, char **cmd_args, char **envp);
-
-#endif
+char	*cmd_check(char *cmd)
+{
+	if (access(cmd, F_OK | X_OK) == 0)
+		return (ft_strdup(cmd));
+	else
+		return (NULL);
+}

@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rprasopk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/03 01:52:18 by rprasopk          #+#    #+#             */
-/*   Updated: 2026/01/08 15:05:40 by rprasopk         ###   ########.fr       */
+/*   Created: 2026/01/08 13:28:35 by rprasopk          #+#    #+#             */
+/*   Updated: 2026/01/08 13:31:06 by rprasopk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../include/pipex.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <string.h>
-# include <sys/wait.h>
-# include <sys/types.h>
+void	ft_free_tab(char **tab)
+{
+	int	i;
 
-# include "./libft/libft.h"
-
-void	ft_free_tab(char **tab);
-char	*cmd_check(char *cmd);
-char	**find_envp(char **envp);
-void	execute_fork(char *path, char **cmd_args, char **envp);
-
-#endif
+	i = 0;
+	if (!tab)
+		return ;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}

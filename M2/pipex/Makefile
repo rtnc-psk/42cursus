@@ -5,10 +5,10 @@ LIBFT = include/libft
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-FLAG_LIBFT = -Wall -Wextra -Werror -I include
+FLAG_LIBFT = -Wall -Wextra -Werror -g3 -I include
 FLAG = -Wall -Wextra -Werror -g3 ${OBJ} -I include -Linclude/ -lft
 
-SRC_FILE = pipex
+SRC_FILE = pipex ft_free_tab cmd_check find_envp execute_fork
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILE)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILE)))
