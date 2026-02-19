@@ -6,7 +6,7 @@
 /*   By: rprasopk <rprasopk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 02:51:27 by rprasopk          #+#    #+#             */
-/*   Updated: 2026/02/13 16:18:14 by rprasopk         ###   ########.fr       */
+/*   Updated: 2026/02/13 17:12:51 by rprasopk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	sort_to_b(t_stack **stack_a, t_stack **stack_b, int size)
 			counter++;
 		}
 		else if ((*stack_a)->index <= counter + chunk_size)
-		{	pb(stack_a, stack_b);
+		{
+			pb(stack_a, stack_b);
 			counter++;
 		}
 		else
@@ -92,5 +93,4 @@ void	butterfly_sort(t_stack **stack_a, t_stack **stack_b)
 	size = ft_find_lstsize(*stack_a);
 	sort_to_b(stack_a, stack_b, size);
 	sort_back_to_a(stack_a, stack_b, size);
-	
 }

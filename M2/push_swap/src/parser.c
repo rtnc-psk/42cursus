@@ -6,7 +6,7 @@
 /*   By: rprasopk <rprasopk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 11:02:17 by rprasopk          #+#    #+#             */
-/*   Updated: 2026/02/13 16:36:09 by rprasopk         ###   ########.fr       */
+/*   Updated: 2026/02/13 17:29:23 by rprasopk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_stack	*parse_args(t_stack	*stack_a, int argc, char **argv)
 	while (++i < argc)
 	{
 		args = ft_split(argv[i], ' ');
-		if (!args)
+		if (!args || !args[0])
 			ft_error(&stack_a, args);
 		j = -1;
 		while (args[++j])

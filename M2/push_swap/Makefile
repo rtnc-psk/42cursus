@@ -9,7 +9,7 @@ FLAG_LIBFT = -Wall -Wextra -Werror -I include
 FLAG = -Wall -Wextra -Werror ${OBJ} -I include -Linclude/ -lft
 
 SRC_FILE = push_swap parser utils1 utils2 push swap rotate \
-		   reverse_rotate test_op butterfly tiny_sort
+		   reverse_rotate butterfly tiny_sort
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILE)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILE)))

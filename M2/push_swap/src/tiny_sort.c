@@ -6,24 +6,24 @@
 /*   By: rprasopk <rprasopk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 14:08:05 by rprasopk          #+#    #+#             */
-/*   Updated: 2026/02/13 16:31:32 by rprasopk         ###   ########.fr       */
+/*   Updated: 2026/02/13 17:14:09 by rprasopk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-static int  find_max_index(t_stack *stack)
+static int	find_max_index(t_stack *stack)
 {
-    int max;
+	int	max;
 
-    max = stack->index;
-    while (stack)
-    {
-        if (stack->index > max)
-            max = stack->index;
-        stack = stack->next;
-    }
-    return (max);
+	max = stack->index;
+	while (stack)
+	{
+		if (stack->index > max)
+			max = stack->index;
+		stack = stack->next;
+	}
+	return (max);
 }
 
 void	sort_three(t_stack **stack_a)
